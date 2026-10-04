@@ -1,0 +1,10 @@
+; hello.tally — emit says it with characters
+push 72
+emit
+push 105
+emit
+push 33
+emit
+push 10
+emit
+halt

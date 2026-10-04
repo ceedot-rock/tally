@@ -1,0 +1,20 @@
+; fact.tally — 10!  Loop invariant on entry: [n, acc]  (acc on top)
+
+push 10
+push 1
+
+loop:
+over         ; [n, acc, n]
+mul          ; [n, acc*n]
+swap         ; [acc*n, n]
+push 1
+sub          ; [acc*n, n-1]
+dup
+jz end       ; n-1 is on top — test it here
+swap         ; [n-1, acc*n]
+jmp loop
+
+end:           ; [acc*n, 0]
+swap         ; [0, acc*n]
+print
+halt

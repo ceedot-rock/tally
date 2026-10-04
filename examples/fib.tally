@@ -1,0 +1,24 @@
+; fib.tally — print the first 10 Fibonacci numbers.
+; Loop invariant on entry: [n, a, b]  (b on top)
+
+push 10
+push 0
+push 1
+
+loop:
+dup          ; [n, a, b, b]
+rot          ; [n, b, b, a]
+dup          ; [n, b, b, a, a]
+print        ; prints a
+add          ; [n, b, a+b]
+rot          ; [b, a+b, n]
+push 1
+sub          ; [b, a+b, n-1]
+dup
+jz end       ; n-1 is on top here — test it before rotating back
+rot          ; [a+b, n-1, b]
+rot          ; [n-1, b, a+b]
+jmp loop
+
+end:
+halt
