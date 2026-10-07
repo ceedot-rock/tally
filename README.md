@@ -1,5 +1,8 @@
 # tally
 
+[![Audited checks](https://github.com/ceedot-rock/tally/actions/workflows/audited-checks.yml/badge.svg)](https://github.com/ceedot-rock/tally/actions/workflows/audited-checks.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 A tiny exact stack computer. It only counts, but it never lies.
 
 A tally program is text. tally assembles it, runs it deterministically, and
