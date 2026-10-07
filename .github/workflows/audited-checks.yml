@@ -1,0 +1,38 @@
+name: Audited checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Gold tests + pinned proofs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run the full suite
+        run: python3 test_tally.py
+
+  determinism:
+    name: Proof is stable across runs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Same program, same proof, twice
+        run: |
+          python3 tally.py examples/fib.tally 2> proof1.txt 1> out1.txt
+          python3 tally.py examples/fib.tally 2> proof2.txt 1> out2.txt
+          diff out1.txt out2.txt
+          diff proof1.txt proof2.txt
+          grep -q 'proof 8d15b7bc0d9d00d0370b807d6ad79d870ddd839ba3c134a97bf174cd403a69e0 steps 131' proof1.txt
